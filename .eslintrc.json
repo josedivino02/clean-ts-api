@@ -3,6 +3,8 @@
   "extends": "standard-with-typescript",
   "parserOptions": {
     // utiliza as config do typescript
-    "project": "/.tsconfig.json"
+    "project": "tsconfig.json",
+    "tsconfigRootDir": "__dirname",
+    "sourceType": "module",
   }
 }
