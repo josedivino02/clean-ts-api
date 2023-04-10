@@ -8,6 +8,7 @@ interface SutTypes {
   emailValidatorStub: EmailValidator
 }
 
+// factory
 const makeSut = (): SutTypes => {
   // Um dublê de teste um Stub, tipos de mock
   class EmailValidatorStub implements EmailValidator {
@@ -114,5 +115,25 @@ describe('signUp Controller', () => {
 
     expect(httpResponse.statusCode).toBe(400)
     expect(httpResponse.body).toEqual(new InvalidParamError('email'))
+  })
+
+  test('Should call EmailValidator with correct email', () => {
+    // system under test
+    const { sut, emailValidatorStub } = makeSut()
+    // espionar /
+    const isValidSpy = jest.spyOn(emailValidatorStub, 'isValid')
+
+    const httpRequest = {
+      body: {
+        name: 'any_name',
+        email: 'any_email@mail.com',
+        password: 'any_password',
+        passwordConfirmation: 'any_password',
+      }
+    }
+
+    sut.handle(httpRequest)
+
+    expect(isValidSpy).toHaveBeenCalledWith('any_email@mail.com')
   })
 })
