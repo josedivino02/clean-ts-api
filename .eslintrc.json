@@ -9,5 +9,8 @@
   },
   "rules": {
     "@typescript-eslint/strict-boolean-expressions": "off"
-  }
+  },
+  "plugins": [
+    "@typescript-eslint/eslint-plugin"],
+  "root": true,
 }
