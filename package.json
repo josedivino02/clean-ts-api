@@ -40,10 +40,5 @@
     "mongodb": "3.7.0",
     "ts-node-dev": "^2.0.0",
     "validator": "^13.9.0"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
   }
 }
