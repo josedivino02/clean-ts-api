@@ -1,1 +1,12 @@
-module.exports={mongodbMemoryServerOptions:{binary:{version:"4.0.3",skipMD5:!0},instance:{dbName:"jest"},autoStart:!1}};
+module.exports = {
+  mongodbMemoryServerOptions: {
+    instance: {
+      dbName: 'jest',
+    },
+    binary: {
+      version: '4.0.3',
+      skipMD5: true,
+    },
+    autoStart: false,
+  },
+}
