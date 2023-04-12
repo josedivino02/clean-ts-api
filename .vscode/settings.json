@@ -1,3 +1,9 @@
 {
-  "cSpell.words": ["encrypter", "Encrypter", "usecases"]
+  "cSpell.words": [
+    "encrypter",
+    "Encrypter",
+    "middlewares",
+    "Middlewares",
+    "usecases"
+  ]
 }
