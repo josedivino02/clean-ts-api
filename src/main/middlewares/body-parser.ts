@@ -1,4 +1,4 @@
 import { json, urlencoded } from "express";
 
 export const bodyParser = json();
-export const bodyParserEncoded = urlencoded();
+export const bodyParserEncoded = urlencoded({ extended: true });
