@@ -3,10 +3,10 @@ import {
   HttpRequest,
   HttpResponse,
 } from "../../presentation/protocols";
-import { LogControllerDecorator } from "./log";
+import { LogControllerDecorator } from "./log.decorator";
 import { serverError, ok } from "../../presentation/helpers/http-helper";
-import { LogErrorRepository } from "../../data/protocols/log-error-repository";
-import { AccountModel } from "../../domain/models/account";
+import { LogErrorRepository } from "../../data/protocols/log-error.repository";
+import { AccountModel } from "../../domain/models/account.interface";
 
 const makeController = (): Controller => {
   class ControllerStub implements Controller {

@@ -1,4 +1,4 @@
-import { SignUpController } from "./signup";
+import { SignUpController } from "./signup.controller";
 import {
   MissingParamError,
   InvalidParamError,

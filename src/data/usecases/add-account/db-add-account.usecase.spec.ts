@@ -1,4 +1,4 @@
-import { DbAddAccount } from "./db-add-account";
+import { DbAddAccount } from "./db-add-account.usecase";
 import {
   AccountModel,
   AddAccountModel,
