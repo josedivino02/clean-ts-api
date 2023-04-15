@@ -6,7 +6,12 @@ import {
   ok,
 } from "../../helpers/http/http-helper";
 import { MissingParamError } from "../../errors";
-import { HttpRequest, Authentication, Validation } from "./login-protocols";
+import {
+  HttpRequest,
+  Authentication,
+  Validation,
+  AuthenticationModel,
+} from "./login-protocols";
 
 const makeValidation = (): Validation => {
   class ValidationStub implements Validation {
@@ -20,7 +25,7 @@ const makeValidation = (): Validation => {
 
 const makeAuthentication = (): Authentication => {
   class AuthenticationStub implements Authentication {
-    async auth(email: string, password: string): Promise<string> {
+    async auth(authentication: AuthenticationModel): Promise<string> {
       return Promise.resolve("any_token");
     }
   }
@@ -60,7 +65,10 @@ describe("Login Controller", () => {
 
     await sut.handle(makeFakeRequest());
 
-    expect(authSpy).toHaveBeenCalledWith("any_email@mail.com", "any_password");
+    expect(authSpy).toHaveBeenCalledWith({
+      email: "any_email@mail.com",
+      password: "any_password",
+    });
   });
 
   test("Should return 401 if invalid credentials are provided", async () => {
@@ -96,9 +104,8 @@ describe("Login Controller", () => {
   });
 
   test("Should Validation with correct values", async () => {
-    // system under test
     const { sut, validationStub } = makeSut();
-    // espionar /
+
     const validateSpy = jest.spyOn(validationStub, "validate");
 
     const httpRequest = makeFakeRequest();
@@ -109,7 +116,6 @@ describe("Login Controller", () => {
   });
 
   test("Should return 400 if Validation returns an error", async () => {
-    // system under test
     const { sut, validationStub } = makeSut();
 
     jest
