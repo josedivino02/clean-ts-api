@@ -8,8 +8,8 @@ import {
 
 export class DbAddAccount implements AddAccount {
   constructor(
-    private hasher: Hasher,
-    private addAccountRepository: AddAccountRepository
+    private readonly hasher: Hasher,
+    private readonly addAccountRepository: AddAccountRepository
   ) {}
 
   async add(accountData: AddAccountModel): Promise<AccountModel> {

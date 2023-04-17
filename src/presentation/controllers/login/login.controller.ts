@@ -14,8 +14,8 @@ import {
 
 export class LoginController implements Controller {
   constructor(
-    private authentication: Authentication,
-    private validation: Validation
+    private readonly authentication: Authentication,
+    private readonly validation: Validation
   ) {}
 
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {

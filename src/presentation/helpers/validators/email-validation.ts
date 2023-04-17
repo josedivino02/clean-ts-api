@@ -4,8 +4,8 @@ import { Validation } from "../../protocols/validation.interface";
 
 export class EmailValidation implements Validation {
   constructor(
-    private fieldName: string,
-    private emailValidator: EmailValidator
+    private readonly fieldName: string,
+    private readonly emailValidator: EmailValidator
   ) {}
 
   validate(input: any): Error {
