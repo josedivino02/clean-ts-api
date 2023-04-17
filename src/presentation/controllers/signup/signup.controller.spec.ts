@@ -6,7 +6,7 @@ import {
   AddAccountModel,
   HttpRequest,
   Validation,
-} from "./signup-protocols";
+} from "./signup-controller-protocols";
 import { ok, serverError, badRequest } from "../../helpers/http/http-helper";
 
 // factory
