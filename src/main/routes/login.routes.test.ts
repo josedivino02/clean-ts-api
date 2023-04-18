@@ -4,9 +4,9 @@ import app from "../config/app";
 import { MongoHelper } from "../../infra/db/mongodb/helpers/mongo.helper";
 import { hash } from "bcrypt";
 
-let accountCollection: Collection;
-
 describe("Login Routes", () => {
+  let accountCollection: Collection;
+
   beforeAll(async () => {
     await MongoHelper.connect(process.env.MONGO_URL);
   });
