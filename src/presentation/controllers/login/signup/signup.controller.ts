@@ -1,4 +1,4 @@
-import { Authentication } from "./../../../domain/usecases/authentication.interface";
+import { Authentication } from "./../../../../domain/usecases/authentication.interface";
 import {
   HttpRequest,
   HttpResponse,
@@ -11,8 +11,8 @@ import {
   serverError,
   ok,
   forbidden,
-} from "../../helpers/http/http-helper";
-import { EmailInUseError } from "../../errors";
+} from "../../../helpers/http/http-helper";
+import { EmailInUseError } from "../../../errors";
 
 export class SignUpController implements Controller {
   constructor(
