@@ -18,75 +18,79 @@ const makeSut = (): BcryptAdapter => {
 };
 
 describe("BCrypt Adapter", () => {
-  test("Should call hash with correct values", async () => {
-    const sut = makeSut();
+  describe("hash()", () => {
+    test("Should call hash with correct values", async () => {
+      const sut = makeSut();
 
-    const hashSpy = jest.spyOn(bcrypt, "hash");
+      const hashSpy = jest.spyOn(bcrypt, "hash");
 
-    await sut.hash("any_value");
+      await sut.hash("any_value");
 
-    expect(hashSpy).toHaveBeenCalledWith("any_value", salt);
+      expect(hashSpy).toHaveBeenCalledWith("any_value", salt);
+    });
+
+    test("Should return a valid hash on hash success", async () => {
+      const sut = makeSut();
+
+      const hash = await sut.hash("any_value");
+
+      expect(hash).toBe("hash");
+    });
+
+    // test("Should throw if hash throws", async () => {
+    //   const sut = makeSut();
+
+    //   jest
+    //     .spyOn(bcrypt, "hash")
+    //     .mockReturnValueOnce(await Promise.reject(new Error()));
+
+    //   const promise = sut.hash("any_value");
+
+    //   await expect(promise).rejects.toThrow();
+    // });
   });
 
-  test("Should return a valid hash on hash success", async () => {
-    const sut = makeSut();
+  describe("compare()", () => {
+    test("Should call compare with correct values", async () => {
+      const sut = makeSut();
 
-    const hash = await sut.hash("any_value");
+      const compareSpy = jest.spyOn(bcrypt, "compare");
 
-    expect(hash).toBe("hash");
+      await sut.compare("any_value", "any_hash");
+
+      expect(compareSpy).toHaveBeenCalledWith("any_value", "any_hash");
+    });
+
+    test("Should return true when compare succeeds", async () => {
+      const sut = makeSut();
+
+      const isValid = await sut.compare("any_value", "any_hash");
+
+      expect(isValid).toBe(true);
+    });
+
+    // test("Should return true when compare fails", async () => {
+    //   const sut = makeSut();
+
+    //   jest
+    //     .spyOn(bcrypt, "compare")
+    //     .mockReturnValueOnce(await Promise.resolve(false));
+
+    //   const isValid = await sut.compare("any_value", "any_hash");
+
+    //   expect(isValid).toBe(false);
+    // });
+
+    // test("Should throw if compare throws", async () => {
+    //   const sut = makeSut();
+
+    //   jest
+    //     .spyOn(bcrypt, "compare")
+    //     .mockReturnValueOnce(await Promise.reject(new Error()));
+
+    //   const promise = sut.compare("any_value", "any_hash");
+
+    //   await expect(promise).rejects.toThrow();
+    // });
   });
-
-  // test("Should throw if hash throws", async () => {
-  //   const sut = makeSut();
-
-  //   jest
-  //     .spyOn(bcrypt, "hash")
-  //     .mockReturnValueOnce(await Promise.reject(new Error()));
-
-  //   const promise = sut.hash("any_value");
-
-  //   await expect(promise).rejects.toThrow();
-  // });
-
-  test("Should call compare with correct values", async () => {
-    const sut = makeSut();
-
-    const compareSpy = jest.spyOn(bcrypt, "compare");
-
-    await sut.compare("any_value", "any_hash");
-
-    expect(compareSpy).toHaveBeenCalledWith("any_value", "any_hash");
-  });
-
-  test("Should return true when compare succeeds", async () => {
-    const sut = makeSut();
-
-    const isValid = await sut.compare("any_value", "any_hash");
-
-    expect(isValid).toBe(true);
-  });
-
-  // test("Should return true when compare fails", async () => {
-  //   const sut = makeSut();
-
-  //   jest
-  //     .spyOn(bcrypt, "compare")
-  //     .mockReturnValueOnce(await Promise.resolve(false));
-
-  //   const isValid = await sut.compare("any_value", "any_hash");
-
-  //   expect(isValid).toBe(false);
-  // });
-
-  // test("Should throw if compare throws", async () => {
-  //   const sut = makeSut();
-
-  //   jest
-  //     .spyOn(bcrypt, "compare")
-  //     .mockReturnValueOnce(await Promise.reject(new Error()));
-
-  //   const promise = sut.compare("any_value", "any_hash");
-
-  //   await expect(promise).rejects.toThrow();
-  // });
 });
