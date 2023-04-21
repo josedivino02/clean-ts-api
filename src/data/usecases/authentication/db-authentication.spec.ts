@@ -16,7 +16,7 @@ const makeFakeAccount = (): AccountModel => ({
 });
 
 const makeFakeAuthentication = (): AuthenticationModel => ({
-  email: "any_email",
+  email: "any_email@mail.com",
   password: "any_password",
 });
 
@@ -100,7 +100,7 @@ describe("DbAuthentication UseCase", () => {
 
     await sut.auth(makeFakeAuthentication());
 
-    expect(loadSpy).toHaveBeenCalledWith("any_email");
+    expect(loadSpy).toHaveBeenCalledWith("any_email@mail.com");
   });
 
   test("Should throw if LoadAccountByEmailRepository throws", async () => {
