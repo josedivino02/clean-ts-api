@@ -1,11 +1,9 @@
-import { makeAuthMiddleware } from "./../factories/middlewares/auth-middleware.factory";
 import { Router } from "express";
-import { adaptRoute } from "../adapters/express-route-adapter";
-import { makeAddSurveyController } from "../factories/controller/survey/add-survey/add-survey-controller.factory";
-import { adaptMiddleware } from "../adapters/express-middleware-adapter";
-import { makeLoadSurveyController } from "../factories/controller/survey/load-surveys/load-surveys-controller.factory";
-import { adminAuth } from "../middlewares/admin-auth";
-import { auth } from "../middlewares/auth";
+import { adaptRoute } from "@/main/adapters/express-route-adapter";
+import { makeAddSurveyController } from "@/main/factories/controller/survey/add-survey/add-survey-controller.factory";
+import { makeLoadSurveyController } from "@/main/factories/controller/survey/load-surveys/load-surveys-controller.factory";
+import { adminAuth } from "@/main/middlewares/admin-auth";
+import { auth } from "@/main/middlewares/auth";
 
 export default (router: Router): void => {
   router.post("/surveys", adminAuth, adaptRoute(makeAddSurveyController()));

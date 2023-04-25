@@ -3,7 +3,7 @@ import {
   EmailInUseError,
   MissingParamError,
   ServerError,
-} from "../../../errors";
+} from "@/presentation/errors";
 import {
   AccountModel,
   AddAccount,
@@ -18,7 +18,7 @@ import {
   serverError,
   badRequest,
   forbidden,
-} from "../../../helpers/http/http-helper";
+} from "@/presentation/helpers/http/http-helper";
 
 // factory
 const makeAddAccount = (): AddAccount => {
