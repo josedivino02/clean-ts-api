@@ -93,12 +93,11 @@ describe("Survey Routes", () => {
       await request(app).get("/api/surveys").expect(403);
     });
 
-    // test("Should return 204 on add survey with valid accessToken", async () => {
+    // test("Should return 200 on load surveys with valid accessToken", async () => {
     //   const res = await accountCollection.insertOne({
     //     name: "Divino",
     //     email: "divino.jose@gmail.com",
     //     password: "123",
-    //     role: "admin",
     //   });
 
     //   const id = res.ops[0]._id;
@@ -116,22 +115,26 @@ describe("Survey Routes", () => {
     //     }
     //   );
 
-    //   await request(app)
-    //     .post("/api/surveys")
-    //     .set("x-access-token", accessToken)
-    //     .send({
-    //       question: "Question",
+    //   await surveyCollection.insertMany([
+    //     {
+    //       question: "any_question",
     //       answers: [
     //         {
-    //           answer: "Answer 1",
-    //           image: "http://image-name.com",
+    //           image: "any_image",
+    //           answer: "any_answer",
     //         },
     //         {
-    //           answer: "Answer 2",
+    //           answer: "other_answer",
     //         },
     //       ],
-    //     })
-    //     .expect(204);
+    //       date: new Date(),
+    //     },
+    //   ]);
+
+    //   await request(app)
+    //     .get("/api/surveys")
+    //     .set("x-access-token", accessToken)
+    //     .expect(200);
     // });
   });
 });
