@@ -19,5 +19,6 @@ export const makeSignUpValidation = (): ValidationComposite => {
   );
 
   validations.push(new EmailValidation("email", new EmailValidatorAdapter()));
+
   return new ValidationComposite(validations);
 };
