@@ -3,12 +3,15 @@
   "extends": "standard-with-typescript",
   "parserOptions": {
     // utiliza as config do typescript
-    "project": "tsconfig.json",
+    "project": "./tsconfig.json",
     "tsconfigRootDir": "__dirname",
     "sourceType": "module"
   },
   "rules": {
-    "@typescript-eslint/strict-boolean-expressions": "off"
+    "@typescript-eslint/strict-boolean-expressions": "off",
+    "@typescript-eslint/prefer-nullish-coalescing": "off",
+    "@typescript-eslint/consistent-type-definitions": "off",
+    "semi": "on"
   },
   "plugins": ["@typescript-eslint/eslint-plugin"],
   "root": true

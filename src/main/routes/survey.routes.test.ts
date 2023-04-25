@@ -1,19 +1,19 @@
-import { Collection } from "mongodb";
-import request from "supertest";
-import app from "@/main/config/app";
-import { MongoHelper } from "@/infra/db/mongodb/helpers/mongo.helper";
-import { sign } from "jsonwebtoken";
-import env from "@/main/config/env";
+import { Collection } from 'mongodb';
+import request from 'supertest';
+import app from '@/main/config/app';
+import { MongoHelper } from '@/infra/db/mongodb/helpers/mongo.helper';
+import { sign } from 'jsonwebtoken';
+import env from '@/main/config/env';
 
 let surveyCollection: Collection;
 let accountCollection: Collection;
 
 const makeAccessToken = async (): Promise<string> => {
   const res = await accountCollection.insertOne({
-    name: "Divino",
-    email: "divino.jose@gmail.com",
-    password: "123",
-    role: "admin",
+    name: 'Divino',
+    email: 'divino.jose@gmail.com',
+    password: '123',
+    role: 'admin',
   });
 
   const id = res.ops[0]._id;
@@ -34,9 +34,9 @@ const makeAccessToken = async (): Promise<string> => {
   return accessToken;
 };
 
-describe("Survey Routes", () => {
+describe('Survey Routes', () => {
   beforeAll(async () => {
-    await MongoHelper.connect(env.mongoUrl);
+    await MongoHelper.connect(process.env.MONGO_URL);
   });
 
   afterAll(async () => {
@@ -44,28 +44,28 @@ describe("Survey Routes", () => {
   });
 
   beforeEach(async () => {
-    surveyCollection = await MongoHelper.getCollection("surveys");
+    surveyCollection = await MongoHelper.getCollection('surveys');
 
     await surveyCollection.deleteMany({});
 
-    accountCollection = await MongoHelper.getCollection("accounts");
+    accountCollection = await MongoHelper.getCollection('accounts');
 
     await accountCollection.deleteMany({});
   });
 
-  describe("POST /surveys", () => {
-    test("Should return 403 on add survey without accessToken", async () => {
+  describe('POST /surveys', () => {
+    test('Should return 403 on add survey without accessToken', async () => {
       await request(app)
-        .post("/api/surveys")
+        .post('/api/surveys')
         .send({
-          question: "Question",
+          question: 'Question',
           answers: [
             {
-              answer: "Answer 1",
-              image: "http://image-name.com",
+              answer: 'Answer 1',
+              image: 'http://image-name.com',
             },
             {
-              answer: "Answer 2",
+              answer: 'Answer 2',
             },
           ],
         })
@@ -94,9 +94,9 @@ describe("Survey Routes", () => {
     // });
   });
 
-  describe("GET /surveys", () => {
-    test("Should return 403 on load surveys without accessToken", async () => {
-      await request(app).get("/api/surveys").expect(403);
+  describe('GET /surveys', () => {
+    test('Should return 403 on load surveys without accessToken', async () => {
+      await request(app).get('/api/surveys').expect(403);
     });
 
     // test("Should return 200 on load surveys with valid accessToken", async () => {
