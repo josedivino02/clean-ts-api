@@ -72,26 +72,26 @@ describe('Survey Routes', () => {
         .expect(403);
     });
 
-    // test("Should return 204 on add survey with valid accessToken", async () => {
-    //   const accessToken = await makeAccessToken()
+    test('Should return 204 on add survey with valid accessToken', async () => {
+      const accessToken = await makeAccessToken();
 
-    //   await request(app)
-    //     .post("/api/surveys")
-    //     .set("x-access-token", accessToken)
-    //     .send({
-    //       question: "Question",
-    //       answers: [
-    //         {
-    //           answer: "Answer 1",
-    //           image: "http://image-name.com",
-    //         },
-    //         {
-    //           answer: "Answer 2",
-    //         },
-    //       ],
-    //     })
-    //     .expect(204);
-    // });
+      await request(app)
+        .post('/api/surveys')
+        .set('x-access-token', accessToken)
+        .send({
+          question: 'Question',
+          answers: [
+            {
+              answer: 'Answer 1',
+              image: 'http://image-name.com',
+            },
+            {
+              answer: 'Answer 2',
+            },
+          ],
+        })
+        .expect(204);
+    });
   });
 
   describe('GET /surveys', () => {
@@ -99,39 +99,39 @@ describe('Survey Routes', () => {
       await request(app).get('/api/surveys').expect(403);
     });
 
-    // test("Should return 200 on load surveys with valid accessToken", async () => {
-    //   const accessToken = await makeAccessToken();
+    test('Should return 200 on load surveys with valid accessToken', async () => {
+      const accessToken = await makeAccessToken();
 
-    //   await surveyCollection.insertMany([
-    //     {
-    //       question: "any_question",
-    //       answers: [
-    //         {
-    //           image: "any_image",
-    //           answer: "any_answer",
-    //         },
-    //         {
-    //           answer: "other_answer",
-    //         },
-    //       ],
-    //       date: new Date(),
-    //     },
-    //   ]);
+      await surveyCollection.insertMany([
+        {
+          question: 'any_question',
+          answers: [
+            {
+              image: 'any_image',
+              answer: 'any_answer',
+            },
+            {
+              answer: 'other_answer',
+            },
+          ],
+          date: new Date(),
+        },
+      ]);
 
-    //   await request(app)
-    //     .get("/api/surveys")
-    //     .set("x-access-token", accessToken)
-    //     .expect(200);
-    // });
+      await request(app)
+        .get('/api/surveys')
+        .set('x-access-token', accessToken)
+        .expect(200);
+    });
 
-    // test("Should return 204 on add survey with valid accessToken", async () => {
-    //   const accessToken = await makeAccessToken();
+    test('Should return 204 on add survey with valid accessToken', async () => {
+      const accessToken = await makeAccessToken();
 
-    //   await request(app)
-    //     .get("/api/surveys")
-    //     .set("x-access-token", accessToken)
+      await request(app)
+        .get('/api/surveys')
+        .set('x-access-token', accessToken)
 
-    //     .expect(204);
-    // });
+        .expect(204);
+    });
   });
 });
