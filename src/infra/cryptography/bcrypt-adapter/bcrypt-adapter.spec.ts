@@ -1,9 +1,10 @@
-import bcrypt from "bcrypt";
-import { BcryptAdapter } from "./bcrypt-adapter";
+import bcrypt from 'bcrypt';
+import { BcryptAdapter } from './bcrypt-adapter';
+import { throwError } from '@/domain/test';
 
-jest.mock("bcrypt", () => ({
+jest.mock('bcrypt', () => ({
   async hash(): Promise<string> {
-    return Promise.resolve("hash");
+    return Promise.resolve('hash');
   },
 
   async compare(): Promise<boolean> {
@@ -17,78 +18,74 @@ const makeSut = (): BcryptAdapter => {
   return new BcryptAdapter(salt);
 };
 
-describe("BCrypt Adapter", () => {
-  describe("hash()", () => {
-    test("Should call hash with correct values", async () => {
+describe('BCrypt Adapter', () => {
+  describe('hash()', () => {
+    test('Should call hash with correct values', async () => {
       const sut = makeSut();
 
-      const hashSpy = jest.spyOn(bcrypt, "hash");
+      const hashSpy = jest.spyOn(bcrypt, 'hash');
 
-      await sut.hash("any_value");
+      await sut.hash('any_value');
 
-      expect(hashSpy).toHaveBeenCalledWith("any_value", salt);
+      expect(hashSpy).toHaveBeenCalledWith('any_value', salt);
     });
 
-    test("Should return a valid hash on hash success", async () => {
+    test('Should return a valid hash on hash success', async () => {
       const sut = makeSut();
 
-      const hash = await sut.hash("any_value");
+      const hash = await sut.hash('any_value');
 
-      expect(hash).toBe("hash");
+      expect(hash).toBe('hash');
     });
 
-    // test("Should throw if hash throws", async () => {
-    //   const sut = makeSut();
+    test('Should throw if hash throws', async () => {
+      const sut = makeSut();
 
-    //   jest
-    //     .spyOn(bcrypt, "hash")
-    //     .mockReturnValueOnce(await Promise.reject(new Error()));
+      jest.spyOn(bcrypt, 'hash').mockImplementationOnce(throwError);
 
-    //   const promise = sut.hash("any_value");
+      const promise = sut.hash('any_value');
 
-    //   await expect(promise).rejects.toThrow();
-    // });
+      await expect(promise).rejects.toThrow();
+    });
   });
 
-  describe("compare()", () => {
-    test("Should call compare with correct values", async () => {
+  describe('compare()', () => {
+    test('Should call compare with correct values', async () => {
       const sut = makeSut();
 
-      const compareSpy = jest.spyOn(bcrypt, "compare");
+      const compareSpy = jest.spyOn(bcrypt, 'compare');
 
-      await sut.compare("any_value", "any_hash");
+      await sut.compare('any_value', 'any_hash');
 
-      expect(compareSpy).toHaveBeenCalledWith("any_value", "any_hash");
+      expect(compareSpy).toHaveBeenCalledWith('any_value', 'any_hash');
     });
 
-    test("Should return true when compare succeeds", async () => {
+    test('Should return true when compare succeeds', async () => {
       const sut = makeSut();
 
-      const isValid = await sut.compare("any_value", "any_hash");
+      const isValid = await sut.compare('any_value', 'any_hash');
 
       expect(isValid).toBe(true);
     });
 
-    test("Should return true when compare fails", async () => {
+    test('Should return true when compare fails', async () => {
       const sut = makeSut();
 
-      jest.spyOn(bcrypt, "compare").mockImplementationOnce(() => false);
+      jest.spyOn(bcrypt, 'compare').mockImplementationOnce(() => false);
 
-      const isValid = await sut.compare("any_value", "any_hash");
+      const isValid = await sut.compare('any_value', 'any_hash');
 
       expect(isValid).toBe(false);
     });
 
-    // test("Should throw if compare throws", async () => {
-    //   const sut = makeSut();
+    test('Should throw if compare throws', async () => {
+      const sut = makeSut();
 
-    //   jest
-    //     .spyOn(bcrypt, "compare")
-    //     .mockReturnValueOnce(await Promise.reject(new Error()));
+      jest.spyOn(bcrypt, 'compare').mockImplementationOnce(throwError);
 
-    //   const promise = sut.compare("any_value", "any_hash");
+      const promise = sut.compare('any_value', 'any_hash');
 
-    //   await expect(promise).rejects.toThrow();
-    // });
+      await expect(promise).rejects.toThrow();
+    });
   });
 });
