@@ -14,6 +14,7 @@ import {
   surveysSchema,
   apiKeyAuthSchema,
   signParamsSchema,
+  addSurveyParamsSchema,
 } from './schemas';
 import { loginPath, surveyPath, signupPath } from './paths';
 
@@ -50,6 +51,7 @@ export default {
     account: accountSchema,
     loginParams: loginParamsSchema,
     signUpParams: signParamsSchema,
+    addSurveyParams: addSurveyParamsSchema,
     error: errorSchema,
     survey: surveySchema,
     surveys: surveysSchema,
