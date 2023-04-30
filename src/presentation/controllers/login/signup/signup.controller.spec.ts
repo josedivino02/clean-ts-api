@@ -7,9 +7,9 @@ import {
 import {
   AccountModel,
   AddAccount,
-  AddAccountModel,
+  AddAccountParams,
   Authentication,
-  AuthenticationModel,
+  AuthenticationParams,
   HttpRequest,
   Validation,
 } from './signup-controller-protocols';
@@ -24,7 +24,7 @@ import {
 const makeAddAccount = (): AddAccount => {
   // Um dublê de teste um Stub, tipos de mock
   class AddAccountStub implements AddAccount {
-    async add(account: AddAccountModel): Promise<AccountModel> {
+    async add(account: AddAccountParams): Promise<AccountModel> {
       return Promise.resolve(makeFakeAccount());
     }
   }
@@ -60,7 +60,7 @@ const makeFakeRequest = (): HttpRequest => ({
 
 const makeAuthentication = (): Authentication => {
   class AuthenticationStub implements Authentication {
-    async auth(authentication: AuthenticationModel): Promise<string> {
+    async auth(authentication: AuthenticationParams): Promise<string> {
       return Promise.resolve('any_token');
     }
   }
