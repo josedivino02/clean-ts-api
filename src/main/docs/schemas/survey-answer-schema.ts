@@ -11,4 +11,5 @@ export const surveyAnswerSchema = {
       type: 'string',
     },
   },
+  required: ['answer'],
 };
