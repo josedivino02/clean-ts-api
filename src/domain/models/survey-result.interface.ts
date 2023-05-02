@@ -1,8 +1,13 @@
 export type SurveyResultModel = {
-  id: string;
   surveyId: string;
-  accountId: string;
   question: string;
-  answer: string;
+  answers: SurveyResultAnswerModel[];
   date: Date;
+};
+
+type SurveyResultAnswerModel = {
+  image?: string;
+  answer: string;
+  count: number;
+  percent: number;
 };
