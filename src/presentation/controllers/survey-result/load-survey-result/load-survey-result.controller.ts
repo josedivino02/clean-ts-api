@@ -1,5 +1,6 @@
 import {
   forbidden,
+  ok,
   serverError,
 } from '@/presentation/helpers/http/http-helper';
 import {
@@ -27,9 +28,9 @@ export class LoadSurveyResultController implements Controller {
 
       if (!survey) return forbidden(new InvalidParamError('surveyId'));
 
-      await this.loadSurveyResult.load(surveyId);
+      const surveyResult = await this.loadSurveyResult.load(surveyId);
 
-      return null;
+      return ok(surveyResult);
     } catch (error) {
       return serverError(error);
     }
