@@ -1,5 +1,6 @@
 import {
   forbidden,
+  ok,
   serverError,
 } from '@/presentation/helpers/http/http-helper';
 import {
@@ -7,10 +8,11 @@ import {
   LoadSurveyById,
   LoadSurveyResult,
 } from './load-survey-result-protocols';
+import MockDate from 'mockdate';
 import { LoadSurveyResultController } from './load-survey-result.controller';
 import { mockLoadSurveyById } from '@/presentation/test';
 import { InvalidParamError } from '@/presentation/errors';
-import { throwError } from '@/domain/test';
+import { mockSurveyResultModel, throwError } from '@/domain/test';
 import { mockLoadSurveyResult } from '@/presentation/test/mock-survey-result';
 
 const mockRequest = (): HttpRequest => ({
@@ -41,6 +43,14 @@ const makeSut = (): SutTypes => {
 };
 
 describe('LoadSurveyResult Controller', () => {
+  beforeAll(() => {
+    MockDate.set(new Date());
+  });
+
+  afterAll(() => {
+    MockDate.reset();
+  });
+
   test('Should call LoadSurveyById with correct value', async () => {
     const { sut, loadSurveyByIdStub } = makeSut();
 
@@ -93,5 +103,15 @@ describe('LoadSurveyResult Controller', () => {
     const httpResponse = await sut.handle(mockRequest());
 
     expect(httpResponse).toEqual(serverError(new Error()));
+  });
+
+  test('Should return 200 on success', async () => {
+    const { sut } = makeSut();
+
+    const httpResponse = await sut.handle(mockRequest());
+
+    console.log(httpResponse);
+
+    expect(httpResponse).toEqual(ok(mockSurveyResultModel()));
   });
 });
